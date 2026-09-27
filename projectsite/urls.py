@@ -1,38 +1,49 @@
-# STEP 14 — projectsite/urls.py
-
 from django.contrib import admin
 from django.urls import path
 
+from hangarin import views
+
 from hangarin.views import (
     HomePageView,
-    TaskListView,
-    typography,
+    TaskList,
+    TaskCreateView,
+    TaskUpdateView,
+    TaskDeleteView,
 )
 
 
 urlpatterns = [
 
-    path(
-        'admin/',
-        admin.site.urls
-    ),
+    path("admin/", admin.site.urls),
 
     path(
-        '',
+        "",
         HomePageView.as_view(),
-        name='home'
+        name="home"
     ),
 
     path(
-        'tasks/',
-        TaskListView.as_view(),
-        name='task-list'
+        "task_list",
+        TaskList.as_view(),
+        name="task-list"
     ),
 
     path(
-        'typography/',
-        typography,
-        name='typography'
+        "task_list/add",
+        TaskCreateView.as_view(),
+        name="task-add"
+    ),
+
+    path(
+        "task_list/<pk>",
+        TaskUpdateView.as_view(),
+        name="task-update"
+    ),
+
+    path(
+        "task_list/<pk>/delete",
+        TaskDeleteView.as_view(),
+        name="task-delete"
     ),
 
 ]
