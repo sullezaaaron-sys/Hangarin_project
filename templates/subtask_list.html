@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}Subtasks - Hangarin{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="page-header">
+        <h4 class="page-title">Subtasks</h4>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+                        Task Subtasks
+                    </div>
+
+                    <div class="card-category">
+                        Manage the subtasks associated with your tasks
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+
+                        <a href="{% url 'subtask-add' %}" class="btn btn-primary">
+
+                            <i class="la la-plus"></i>
+                            Add Subtask
+
+                        </a>
+
+                    </div>
+
+                    {% if object_list %}
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover">
+
+                            <thead>
+
+                                <tr>
+                                    <th>#</th>
+                                    <th>Parent Task</th>
+                                    <th>Subtask</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {% for subtask in object_list %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ forloop.counter }}
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ subtask.parent_task.title }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ subtask.title }}
+                                    </td>
+
+                                    <td>
+
+                                        {% if subtask.status == "Completed" %}
+
+                                            <span class="badge badge-success">
+                                                Completed
+                                            </span>
+
+                                        {% elif subtask.status == "In Progress" %}
+
+                                            <span class="badge badge-info">
+                                                In Progress
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="badge badge-warning">
+                                                Pending
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                    <td>
+                                        {{ subtask.created_at|date:"M d, Y" }}
+                                    </td>
+
+                                    <td>
+
+                                        <a
+                                            href="{% url 'subtask-update' subtask.pk %}"
+                                            class="btn btn-sm btn-info"
+                                        >
+                                            Edit
+                                        </a>
+
+                                        <a
+                                            href="{% url 'subtask-delete' subtask.pk %}"
+                                            class="btn btn-sm btn-danger"
+                                        >
+                                            Delete
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="text-center p-4">
+
+                        <h5>No subtasks yet.</h5>
+
+                        <p class="text-muted">
+                            Create a subtask to break a task into smaller activities.
+                        </p>
+
+                        <a href="{% url 'subtask-add' %}" class="btn btn-primary">
+                            Add Subtask
+                        </a>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

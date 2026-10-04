@@ -1,80 +1,237 @@
-{% extends 'base.html' %}
-
-{% load static %}
+{% extends "base.html" %}
 
 {% block content %}
 
-<div class="content">
+<div class="container-fluid">
 
-    <div class="container-fluid">
+    <div class="page-header">
+        <h4 class="page-title">
+            {% if object %}
+                Edit Task
+            {% else %}
+                Add Task
+            {% endif %}
+        </h4>
+    </div>
 
-        <h4 class="page-title">Tasks</h4>
+    <div class="row">
 
-        <div class="row">
+        <div class="col-md-8">
 
-            <div class="col-md-12">
+            <div class="card">
 
-                <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        {% if object %}
+                            Edit Task
+                        {% else %}
+                            Create New Task
+                        {% endif %}
+                    </div>
 
-                    <div class="card-header">
+                    <div class="card-category">
+                        Enter the task information below.
+                    </div>
+                </div>
 
-                        <div class="card-title">
-                            {% if object %}
-                                Update Task
-                            {% else %}
-                                Add New Task
+                <div class="card-body">
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <label for="{{ form.title.id_for_label }}">
+                                Task Title
+                            </label>
+
+                            {{ form.title }}
+
+                            {% if form.title.errors %}
+                                <div class="text-danger">
+                                    {{ form.title.errors }}
+                                </div>
                             {% endif %}
                         </div>
 
-                        <div class="card-category">
-                            Task Form
-                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.description.id_for_label }}">
+                                Description
+                            </label>
 
-                    </div>
+                            {{ form.description }}
 
-                    <div class="col-md-8">
-
-                        <div class="card-body">
-
-                            <form action="" method="post" novalidate>
-
-                                {% csrf_token %}
-
-                                {% include 'includes/form.html' %}
-
-                                <div class="form-group">
-
-                                    <div class="col-md-12 col-sm-3">
-
-                                        <button
-                                            type="submit"
-                                            class="btn btn-primary btn-rounded"
-                                        >
-                                            Submit
-                                        </button>
-
-                                        <a
-                                            href="{% url 'task-list' %}"
-                                            class="btn btn-secondary btn-rounded"
-                                        >
-                                            Cancel
-                                        </a>
-
-                                    </div>
-
+                            {% if form.description.errors %}
+                                <div class="text-danger">
+                                    {{ form.description.errors }}
                                 </div>
+                            {% endif %}
+                        </div>
 
-                            </form>
+                        <div class="form-group">
+                            <label for="{{ form.deadline.id_for_label }}">
+                                Deadline
+                            </label>
+
+                            {{ form.deadline }}
+
+                            {% if form.deadline.errors %}
+                                <div class="text-danger">
+                                    {{ form.deadline.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.status.id_for_label }}">
+                                Status
+                            </label>
+
+                            {{ form.status }}
+
+                            {% if form.status.errors %}
+                                <div class="text-danger">
+                                    {{ form.status.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.category.id_for_label }}">
+                                Category
+                            </label>
+
+                            {{ form.category }}
+
+                            {% if form.category.errors %}
+                                <div class="text-danger">
+                                    {{ form.category.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.priority.id_for_label }}">
+                                Priority
+                            </label>
+
+                            {{ form.priority }}
+
+                            {% if form.priority.errors %}
+                                <div class="text-danger">
+                                    {{ form.priority.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="card-action">
+
+                            <button type="submit" class="btn btn-primary">
+                                {% if object %}
+                                    <i class="la la-save"></i>
+                                    Update Task
+                                {% else %}
+                                    <i class="la la-plus"></i>
+                                    Add Task
+                                {% endif %}
+                            </button>
+
+                            <a href="{% url 'task-list' %}" class="btn btn-danger">
+                                <i class="la la-times"></i>
+                                Cancel
+                            </a>
 
                         </div>
 
-                    </div>
+                    </form>
 
                 </div>
 
             </div>
 
         </div>
+
+
+        {% if object %}
+
+        <div class="col-md-4">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <div class="card-title">
+                        Subtasks
+                    </div>
+
+                    <div class="card-category">
+                        Subtasks for this task
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    {% if object.subtask_set.all %}
+
+                        {% for subtask in object.subtask_set.all %}
+
+                            <div class="d-flex align-items-center mb-3">
+
+                                <div class="mr-3">
+                                    {% if subtask.status == "Completed" %}
+                                        <i class="la la-check-circle text-success"
+                                           style="font-size: 24px;"></i>
+                                    {% elif subtask.status == "In Progress" %}
+                                        <i class="la la-spinner text-warning"
+                                           style="font-size: 24px;"></i>
+                                    {% else %}
+                                        <i class="la la-circle-o text-secondary"
+                                           style="font-size: 24px;"></i>
+                                    {% endif %}
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        {{ subtask.title }}
+                                    </strong>
+
+                                    <br>
+
+                                    <small class="text-muted">
+                                        {{ subtask.status }}
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        {% empty %}
+
+                            <p class="text-muted">
+                                No subtasks have been added yet.
+                            </p>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <p class="text-muted">
+                            No subtasks have been added yet.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
 
     </div>
 
