@@ -1,12 +1,10 @@
-# STEP 12 — projectsite/settings.py
-
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-&u+tb++5lk=sdkn1%c*db4&z*mn-pyutb00_2f6c6+eq908(r='
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'left.pythonanywhere.com',
