@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import TemplateView
 
 from hangarin.views import (
@@ -36,6 +36,7 @@ urlpatterns = [
         "admin/",
         admin.site.urls
     ),
+    path("accounts/", include("allauth.urls")),
 
     # =========================
     # DASHBOARD
