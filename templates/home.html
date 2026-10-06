@@ -1,34 +1,93 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}
-Hangarin - Dashboard
+Hangarin Dashboard
 {% endblock %}
+
 
 {% block content %}
 
-<div class="container-fluid">
+<div class="page-inner">
 
-    <h4 class="page-title">
-        Hangarin Dashboard
-    </h4>
+    <!-- PAGE HEADER -->
+    <div class="page-header">
 
+        <h4 class="page-title">
+            Dashboard
+        </h4>
+
+    </div>
+
+
+    <!-- WELCOME -->
     <div class="row">
 
-        <!-- Total Tasks -->
-        <div class="col-md-4">
+        <div class="col-md-12">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+                        Welcome to Hangarin
+                    </div>
+
+                    <div class="card-category">
+                        Task & To-Do Manager
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <p>
+                        Welcome to Hangarin. Use this system to organize
+                        and manage your tasks and activities.
+                    </p>
+
+                    <a
+                        href="{% url 'task-add' %}"
+                        class="btn btn-primary">
+
+                        <i class="la la-plus"></i>
+                        Add Task
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+    <div class="row">
+
+        <!-- TOTAL TASKS -->
+        <div class="col-sm-6 col-md-3">
+
             <div class="card card-stats card-round">
 
                 <div class="card-body">
 
-                    <div class="row">
+                    <div class="row align-items-center">
 
-                        <div class="col-5">
-                            <div class="icon-big text-center">
-                                <i class="la la-check-square text-primary"></i>
+                        <div class="col-icon">
+
+                            <div class="icon-big text-center icon-primary bubble-shadow-small">
+
+                                <i class="la la-check-square"></i>
+
                             </div>
+
                         </div>
 
-                        <div class="col-7 col-stats">
+
+                        <div class="col col-stats ml-3 ml-sm-0">
 
                             <div class="numbers">
 
@@ -49,29 +108,36 @@ Hangarin - Dashboard
                 </div>
 
             </div>
+
         </div>
 
 
-        <!-- Pending Tasks -->
-        <div class="col-md-4">
+        <!-- PENDING -->
+        <div class="col-sm-6 col-md-3">
+
             <div class="card card-stats card-round">
 
                 <div class="card-body">
 
-                    <div class="row">
+                    <div class="row align-items-center">
 
-                        <div class="col-5">
-                            <div class="icon-big text-center">
-                                <i class="la la-clock-o text-warning"></i>
+                        <div class="col-icon">
+
+                            <div class="icon-big text-center icon-warning bubble-shadow-small">
+
+                                <i class="la la-clock-o"></i>
+
                             </div>
+
                         </div>
 
-                        <div class="col-7 col-stats">
+
+                        <div class="col col-stats ml-3 ml-sm-0">
 
                             <div class="numbers">
 
                                 <p class="card-category">
-                                    Pending Tasks
+                                    Pending
                                 </p>
 
                                 <h4 class="card-title">
@@ -87,29 +153,81 @@ Hangarin - Dashboard
                 </div>
 
             </div>
+
         </div>
 
 
-        <!-- Completed Tasks -->
-        <div class="col-md-4">
+        <!-- IN PROGRESS -->
+        <div class="col-sm-6 col-md-3">
+
             <div class="card card-stats card-round">
 
                 <div class="card-body">
 
-                    <div class="row">
+                    <div class="row align-items-center">
 
-                        <div class="col-5">
-                            <div class="icon-big text-center">
-                                <i class="la la-check text-success"></i>
+                        <div class="col-icon">
+
+                            <div class="icon-big text-center icon-info bubble-shadow-small">
+
+                                <i class="la la-spinner"></i>
+
                             </div>
+
                         </div>
 
-                        <div class="col-7 col-stats">
+
+                        <div class="col col-stats ml-3 ml-sm-0">
 
                             <div class="numbers">
 
                                 <p class="card-category">
-                                    Completed Tasks
+                                    In Progress
+                                </p>
+
+                                <h4 class="card-title">
+                                    {{ in_progress_tasks }}
+                                </h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- COMPLETED -->
+        <div class="col-sm-6 col-md-3">
+
+            <div class="card card-stats card-round">
+
+                <div class="card-body">
+
+                    <div class="row align-items-center">
+
+                        <div class="col-icon">
+
+                            <div class="icon-big text-center icon-success bubble-shadow-small">
+
+                                <i class="la la-check"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col col-stats ml-3 ml-sm-0">
+
+                            <div class="numbers">
+
+                                <p class="card-category">
+                                    Completed
                                 </p>
 
                                 <h4 class="card-title">
@@ -125,54 +243,13 @@ Hangarin - Dashboard
                 </div>
 
             </div>
-        </div>
-
-    </div>
-
-
-    <!-- Welcome Card -->
-
-    <div class="row">
-
-        <div class="col-md-12">
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div class="card-title">
-                        Welcome to Hangarin
-                    </div>
-
-                    <div class="card-category">
-                        Task & To-Do Manager
-                    </div>
-
-                </div>
-
-                <div class="card-body">
-
-                    <p>
-                        Welcome to Hangarin. Use this system to organize
-                        and manage your tasks and activities.
-                    </p>
-
-                    <a href="#" class="btn btn-primary">
-                        <i class="la la-plus"></i>
-                        Add Task
-                    </a>
-
-                </div>
-
-            </div>
 
         </div>
 
     </div>
 
 
-    <!-- Recent Tasks -->
-
+    <!-- RECENT TASKS -->
     <div class="row">
 
         <div class="col-md-12">
@@ -187,9 +264,10 @@ Hangarin - Dashboard
 
                 </div>
 
+
                 <div class="card-body">
 
-                    {% if tasks %}
+                    {% if recent_tasks %}
 
                         <div class="table-responsive">
 
@@ -204,44 +282,101 @@ Hangarin - Dashboard
                                         </th>
 
                                         <th>
-                                            Priority
+                                            Category
                                         </th>
 
                                         <th>
-                                            Category
+                                            Priority
                                         </th>
 
                                         <th>
                                             Status
                                         </th>
 
+                                        <th>
+                                            Deadline
+                                        </th>
+
+                                        <th>
+                                            Action
+                                        </th>
+
                                     </tr>
 
                                 </thead>
 
+
                                 <tbody>
 
-                                    {% for task in tasks %}
+                                    {% for task in recent_tasks %}
 
-                                    <tr>
+                                        <tr>
 
-                                        <td>
-                                            {{ task }}
-                                        </td>
+                                            <td>
+                                                {{ task.title }}
+                                            </td>
 
-                                        <td>
-                                            -
-                                        </td>
 
-                                        <td>
-                                            -
-                                        </td>
+                                            <td>
 
-                                        <td>
-                                            Pending
-                                        </td>
+                                                {% if task.category %}
+                                                    {{ task.category.name }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
 
-                                    </tr>
+                                            </td>
+
+
+                                            <td>
+
+                                                {% if task.priority %}
+                                                    {{ task.priority.name }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+
+                                            </td>
+
+
+                                            <td>
+                                                {{ task.status }}
+                                            </td>
+
+
+                                            <td>
+
+                                                {% if task.deadline %}
+                                                    {{ task.deadline|date:"M d, Y h:i A" }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+
+                                            </td>
+
+
+                                            <td>
+
+                                                <a
+                                                    href="{% url 'task-update' task.pk %}"
+                                                    class="btn btn-sm btn-primary">
+
+                                                    <i class="la la-edit"></i>
+
+                                                </a>
+
+
+                                                <a
+                                                    href="{% url 'task-delete' task.pk %}"
+                                                    class="btn btn-sm btn-danger">
+
+                                                    <i class="la la-trash"></i>
+
+                                                </a>
+
+                                            </td>
+
+                                        </tr>
 
                                     {% endfor %}
 
@@ -251,6 +386,20 @@ Hangarin - Dashboard
 
                         </div>
 
+
+                        <div class="text-center mt-3">
+
+                            <a
+                                href="{% url 'task-list' %}"
+                                class="btn btn-primary">
+
+                                View All Tasks
+
+                            </a>
+
+                        </div>
+
+
                     {% else %}
 
                         <div class="text-center">
@@ -259,14 +408,193 @@ Hangarin - Dashboard
                                 No tasks available yet.
                             </p>
 
-                            <a href="#" class="btn btn-primary">
+
+                            <a
+                                href="{% url 'task-add' %}"
+                                class="btn btn-primary">
+
                                 <i class="la la-plus"></i>
                                 Create Your First Task
+
                             </a>
 
                         </div>
 
                     {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CATEGORIES / PRIORITIES / SUBTASKS -->
+    <div class="row">
+
+
+        <!-- CATEGORIES -->
+        <div class="col-md-4">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+                        Categories
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    {% if categories %}
+
+                        <ul class="list-group">
+
+                            {% for category in categories %}
+
+                                <li class="list-group-item">
+
+                                    {{ category.name }}
+
+                                </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    {% else %}
+
+                        <p class="text-muted">
+                            No categories available.
+                        </p>
+
+                    {% endif %}
+
+
+                    <a
+                        href="{% url 'category-list' %}"
+                        class="btn btn-primary btn-sm mt-3">
+
+                        Manage Categories
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRIORITIES -->
+        <div class="col-md-4">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+                        Priorities
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    {% if priorities %}
+
+                        <ul class="list-group">
+
+                            {% for priority in priorities %}
+
+                                <li class="list-group-item">
+
+                                    {{ priority.name }}
+
+                                </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    {% else %}
+
+                        <p class="text-muted">
+                            No priorities available.
+                        </p>
+
+                    {% endif %}
+
+
+                    <a
+                        href="{% url 'priority-list' %}"
+                        class="btn btn-primary btn-sm mt-3">
+
+                        Manage Priorities
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUBTASKS -->
+        <div class="col-md-4">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-title">
+                        Recent Subtasks
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    {% if subtasks %}
+
+                        <ul class="list-group">
+
+                            {% for subtask in subtasks %}
+
+                                <li class="list-group-item">
+
+                                    {{ subtask.title }}
+
+                                </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    {% else %}
+
+                        <p class="text-muted">
+                            No subtasks available.
+                        </p>
+
+                    {% endif %}
+
+
+                    <a
+                        href="{% url 'subtask-list' %}"
+                        class="btn btn-primary btn-sm mt-3">
+
+                        Manage Subtasks
+
+                    </a>
 
                 </div>
 

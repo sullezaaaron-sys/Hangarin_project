@@ -7,38 +7,28 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>
         {% block title %}Hangarin - To Do List{% endblock %}
     </title>
 
-
-    <!-- Bootstrap -->
-    <link
-        rel="stylesheet"
-        href="{% static 'css/bootstrap.min.css' %}"
-    >
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="{% static 'css/bootstrap.min.css' %}">
 
     <!-- Google Font -->
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    >
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900">
 
-    <!-- Ready Bootstrap Dashboard -->
-    <link
-        rel="stylesheet"
-        href="{% static 'css/ready.css' %}"
-    >
+    <!-- Ready Dashboard CSS -->
+    <link rel="stylesheet"
+          href="{% static 'css/ready.css' %}">
 
-    <link
-        rel="stylesheet"
-        href="{% static 'css/demo.css' %}"
-    >
+    <!-- Demo CSS -->
+    <link rel="stylesheet"
+          href="{% static 'css/demo.css' %}">
 
     {% block extra_css %}
     {% endblock %}
@@ -51,41 +41,31 @@
 <div class="wrapper">
 
 
-    <!-- ========================= -->
     <!-- HEADER -->
-    <!-- ========================= -->
-
     <div class="main-header">
 
         <div class="logo-header">
 
-            <a
-                href="{% url 'home' %}"
-                class="logo"
-            >
+            <a href="{% url 'home' %}" class="logo">
                 Hangarin
             </a>
-
 
             <button
                 class="navbar-toggler sidenav-toggler ml-auto"
                 type="button"
                 data-toggle="collapse"
-                data-target=".sidebar"
+                data-target="#sidebar"
                 aria-controls="sidebar"
                 aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
+                aria-label="Toggle navigation">
 
                 <span class="navbar-toggler-icon"></span>
 
             </button>
 
-
             <button
                 class="topbar-toggler more"
-                type="button"
-            >
+                type="button">
 
                 <i class="la la-ellipsis-v"></i>
 
@@ -95,36 +75,28 @@
 
 
         <!-- TOP NAVBAR -->
-
         <nav class="navbar navbar-header navbar-expand-lg">
 
             <div class="container-fluid">
 
-
-                <!-- SEARCH -->
-
                 <form
                     class="navbar-left navbar-form nav-search mr-md-3"
                     method="get"
-                    action="{% url 'task-list' %}"
-                >
+                    action="{% url 'task-list' %}">
 
                     <div class="input-group">
 
                         <input
                             type="text"
                             name="q"
-                            class="form-control"
                             placeholder="Search tasks..."
-                            value="{{ request.GET.q }}"
-                        >
+                            class="form-control">
 
                         <div class="input-group-append">
 
                             <button
                                 type="submit"
-                                class="input-group-text"
-                            >
+                                class="input-group-text">
 
                                 <i class="la la-search search-icon"></i>
 
@@ -137,13 +109,9 @@
                 </form>
 
 
-                <!-- RIGHT NAVIGATION -->
-
                 <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 
-
-                    <!-- NOTIFICATIONS -->
-
+                    <!-- NOTIFICATION -->
                     <li class="nav-item dropdown hidden-caret">
 
                         <a
@@ -153,43 +121,32 @@
                             role="button"
                             data-toggle="dropdown"
                             aria-haspopup="true"
-                            aria-expanded="false"
-                        >
+                            aria-expanded="false">
 
                             <i class="la la-bell"></i>
 
                         </a>
 
-
                         <ul
                             class="dropdown-menu notif-box"
-                            aria-labelledby="navbarDropdownNotification"
-                        >
+                            aria-labelledby="navbarDropdownNotification">
 
                             <li>
 
                                 <div class="dropdown-title">
-
                                     Hangarin Notifications
-
                                 </div>
 
                             </li>
-
 
                             <li>
 
                                 <div class="notif-center">
 
-
-                                    <a
-                                        href="{% url 'task-list' %}"
-                                    >
+                                    <a href="{% url 'task-list' %}">
 
                                         <div class="notif-icon notif-primary">
-
                                             <i class="la la-check"></i>
-
                                         </div>
 
                                         <div class="notif-content">
@@ -207,14 +164,10 @@
                                     </a>
 
 
-                                    <a
-                                        href="{% url 'subtask-list' %}"
-                                    >
+                                    <a href="{% url 'subtask-list' %}">
 
                                         <div class="notif-icon notif-success">
-
                                             <i class="la la-list"></i>
-
                                         </div>
 
                                         <div class="notif-content">
@@ -231,7 +184,6 @@
 
                                     </a>
 
-
                                 </div>
 
                             </li>
@@ -242,35 +194,26 @@
 
 
                     <!-- USER -->
-
                     <li class="nav-item dropdown">
 
                         <a
                             class="dropdown-toggle profile-pic"
                             data-toggle="dropdown"
                             href="#"
-                            aria-expanded="false"
-                        >
+                            aria-expanded="false">
 
                             <img
                                 src="{% static 'img/profile.jpg' %}"
-                                alt="user"
+                                alt="user-img"
                                 width="36"
-                                class="img-circle"
-                            >
+                                class="img-circle">
 
                             <span>
-
                                 {% if user.is_authenticated %}
-
                                     {{ user.username }}
-
                                 {% else %}
-
                                     Hangarin User
-
                                 {% endif %}
-
                             </span>
 
                         </a>
@@ -282,120 +225,72 @@
 
                                 <div class="user-box">
 
-
                                     <div class="u-img">
 
                                         <img
                                             src="{% static 'img/profile.jpg' %}"
-                                            alt="user"
-                                        >
+                                            alt="user">
 
                                     </div>
-
 
                                     <div class="u-text">
 
                                         <h4>
-
                                             {% if user.is_authenticated %}
-
                                                 {{ user.username }}
-
                                             {% else %}
-
                                                 Hangarin User
-
                                             {% endif %}
-
                                         </h4>
 
+                                        <p class="text-muted">
 
-                                        {% if user.is_authenticated %}
-
-                                            <p class="text-muted">
-
+                                            {% if user.is_authenticated %}
                                                 {{ user.email }}
-
-                                            </p>
-
-                                        {% else %}
-
-                                            <p class="text-muted">
-
+                                            {% else %}
                                                 To Do List
+                                            {% endif %}
 
-                                            </p>
-
-                                        {% endif %}
-
+                                        </p>
 
                                     </div>
-
 
                                 </div>
 
                             </li>
 
+                            <div class="dropdown-divider"></div>
 
-                            <li>
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'home' %}">
 
-                                <div class="dropdown-divider"></div>
+                                <i class="la la-dashboard"></i>
+                                Dashboard
 
-                            </li>
+                            </a>
 
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'task-list' %}">
 
-                            <li>
+                                <i class="la la-check-square"></i>
+                                My Tasks
 
-                                <a
-                                    class="dropdown-item"
-                                    href="{% url 'home' %}"
-                                >
+                            </a>
 
-                                    <i class="la la-dashboard"></i>
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'subtask-list' %}">
 
-                                    Dashboard
+                                <i class="la la-list"></i>
+                                My Subtasks
 
-                                </a>
-
-                            </li>
-
-
-                            <li>
-
-                                <a
-                                    class="dropdown-item"
-                                    href="{% url 'task-list' %}"
-                                >
-
-                                    <i class="la la-check-square"></i>
-
-                                    My Tasks
-
-                                </a>
-
-                            </li>
-
-
-                            <li>
-
-                                <a
-                                    class="dropdown-item"
-                                    href="{% url 'subtask-list' %}"
-                                >
-
-                                    <i class="la la-list"></i>
-
-                                    My Subtasks
-
-                                </a>
-
-                            </li>
-
+                            </a>
 
                         </ul>
 
                     </li>
-
 
                 </ul>
 
@@ -406,16 +301,10 @@
     </div>
 
 
-    <!-- ========================= -->
     <!-- SIDEBAR -->
-    <!-- ========================= -->
-
     <div class="sidebar">
 
-        <div class="sidebar-wrapper scrollbar-inner">
-
-
-            <!-- USER -->
+        <div class="scrollbar-inner sidebar-wrapper">
 
             <div class="user">
 
@@ -423,39 +312,28 @@
 
                     <img
                         src="{% static 'img/profile.jpg' %}"
-                        alt="profile"
-                    >
+                        alt="profile">
 
                 </div>
-
 
                 <div class="info">
 
                     <a
                         data-toggle="collapse"
                         href="#collapseExample"
-                        aria-expanded="false"
-                    >
+                        aria-expanded="true">
 
                         <span>
 
                             {% if user.is_authenticated %}
-
                                 {{ user.username }}
-
                             {% else %}
-
                                 Hangarin User
-
                             {% endif %}
 
-
                             <span class="user-level">
-
                                 To Do List
-
                             </span>
-
 
                             <span class="caret"></span>
 
@@ -463,44 +341,29 @@
 
                     </a>
 
+                    <div class="clearfix"></div>
 
                     <div
                         class="collapse"
-                        id="collapseExample"
-                    >
+                        id="collapseExample">
 
-                        <ul class="nav nav-collapse">
-
+                        <ul class="nav">
 
                             <li>
-
-                                <a
-                                    href="{% url 'home' %}"
-                                >
-
-                                    <span class="sub-item">
+                                <a href="{% url 'home' %}">
+                                    <span class="link-collapse">
                                         Dashboard
                                     </span>
-
                                 </a>
-
                             </li>
-
 
                             <li>
-
-                                <a
-                                    href="{% url 'task-list' %}"
-                                >
-
-                                    <span class="sub-item">
+                                <a href="{% url 'task-list' %}">
+                                    <span class="link-collapse">
                                         My Tasks
                                     </span>
-
                                 </a>
-
                             </li>
-
 
                         </ul>
 
@@ -511,126 +374,85 @@
             </div>
 
 
-            <!-- ========================= -->
             <!-- MAIN MENU -->
-            <!-- ========================= -->
-
             <ul class="nav">
-
-
-                <!-- DASHBOARD -->
 
                 <li class="nav-item">
 
-                    <a
-                        href="{% url 'home' %}"
-                    >
+                    <a href="{% url 'home' %}">
 
                         <i class="la la-dashboard"></i>
 
-                        <p>
-                            Dashboard
-                        </p>
+                        <p>Dashboard</p>
 
                     </a>
 
                 </li>
 
 
-                <!-- TASKS -->
-
                 <li class="nav-item">
 
-                    <a
-                        href="{% url 'task-list' %}"
-                    >
+                    <a href="{% url 'task-list' %}">
 
                         <i class="la la-check-square"></i>
 
-                        <p>
-                            Tasks
-                        </p>
+                        <p>Tasks</p>
 
                     </a>
 
                 </li>
 
 
-                <!-- ADD TASK -->
-
                 <li class="nav-item">
 
-                    <a
-                        href="{% url 'task-add' %}"
-                    >
+                    <a href="{% url 'task-add' %}">
 
                         <i class="la la-plus-circle"></i>
 
-                        <p>
-                            Add Task
-                        </p>
+                        <p>Add Task</p>
 
                     </a>
 
                 </li>
 
 
-                <!-- PRIORITIES -->
-
                 <li class="nav-item">
 
-                    <a
-                        href="{% url 'priority-list' %}"
-                    >
+                    <a href="{% url 'priority-list' %}">
 
                         <i class="la la-flag"></i>
 
-                        <p>
-                            Priorities
-                        </p>
+                        <p>Priorities</p>
 
                     </a>
 
                 </li>
 
 
-                <!-- CATEGORIES -->
-
                 <li class="nav-item">
 
-                    <a
-                        href="{% url 'category-list' %}"
-                    >
+                    <a href="{% url 'category-list' %}">
 
                         <i class="la la-folder"></i>
 
-                        <p>
-                            Categories
-                        </p>
+                        <p>Categories</p>
 
                     </a>
 
                 </li>
 
-
-                <!-- SUBTASKS -->
 
                 <li class="nav-item">
 
-                    <a
-                        href="{% url 'subtask-list' %}"
-                    >
+                    <a href="{% url 'subtask-list' %}">
 
                         <i class="la la-list"></i>
 
-                        <p>
-                            Subtasks
-                        </p>
+                        <p>Subtasks</p>
 
                     </a>
 
                 </li>
-
 
             </ul>
 
@@ -639,10 +461,7 @@
     </div>
 
 
-    <!-- ========================= -->
     <!-- MAIN PANEL -->
-    <!-- ========================= -->
-
     <div class="main-panel">
 
         <div class="content">
@@ -658,7 +477,6 @@
 
 
         <!-- FOOTER -->
-
         <footer class="footer">
 
             <div class="container-fluid">
@@ -678,19 +496,15 @@
 </div>
 
 
-<!-- ========================= -->
 <!-- JAVASCRIPT -->
-<!-- ========================= -->
 
 <script src="{% static 'js/core/jquery.3.2.1.min.js' %}"></script>
+
+<script src="{% static 'js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
 
 <script src="{% static 'js/core/popper.min.js' %}"></script>
 
 <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
-
-<script src="{% static 'js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
-
-<script src="{% static 'js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
 
 <script src="{% static 'js/plugin/chartist/chartist.min.js' %}"></script>
 
@@ -706,12 +520,13 @@
 
 <script src="{% static 'js/plugin/chart-circle/circles.min.js' %}"></script>
 
+<script src="{% static 'js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+
 <script src="{% static 'js/ready.min.js' %}"></script>
 
 
 {% block extra_js %}
 {% endblock %}
-
 
 </body>
 
