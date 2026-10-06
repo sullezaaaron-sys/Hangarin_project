@@ -1,0 +1,390 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Hangarin - Sign Up</title>
+
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/bootstrap.min.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/ready.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900"
+    >
+
+
+    <style>
+
+        body {
+            background-color: #f5f7fb;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .signup-container {
+            width: 100%;
+            max-width: 470px;
+            padding: 20px;
+        }
+
+        .signup-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .logo h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: #888;
+            margin-bottom: 25px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .auth-tab {
+            width: 50%;
+            text-align: center;
+            padding: 12px;
+            font-weight: 700;
+            color: #888;
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+        }
+
+        .auth-tab.active {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+        }
+
+        .auth-tab:hover {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .provider-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f1f3f5;
+            font-size: 30px;
+        }
+
+        .provider-icon.google {
+            color: #4285f4;
+        }
+
+        .provider-icon.github {
+            color: #24292f;
+        }
+
+        .signup-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 800;
+            color: #5c5f69;
+            margin-bottom: 10px;
+        }
+
+        .signup-description {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .form-control {
+            height: 48px;
+            border-radius: 8px;
+        }
+
+        .help-text {
+            font-size: 13px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #842029;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .btn-signup {
+            width: 100%;
+            height: 48px;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .cancel-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            text-decoration: none;
+        }
+
+        .cancel-link:hover {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="signup-container">
+
+
+    <div class="signup-card">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <h1>
+                Hangarin
+            </h1>
+
+            <p>
+                Your simple To-Do List
+            </p>
+
+        </div>
+
+
+        <!-- SIGN IN / SIGN UP -->
+
+        <div class="auth-tabs">
+
+            <a
+                href="{% url 'account_login' %}"
+                class="auth-tab"
+            >
+                Sign In
+            </a>
+
+            <a
+                href="{% url 'account_signup' %}"
+                class="auth-tab active"
+            >
+                Sign Up
+            </a>
+
+        </div>
+
+
+        <!-- PROVIDER ICON -->
+
+        {% if provider.id == "google" %}
+
+            <div class="provider-icon google">
+
+                <i class="fab fa-google"></i>
+
+            </div>
+
+        {% elif provider.id == "github" %}
+
+            <div class="provider-icon github">
+
+                <i class="fab fa-github"></i>
+
+            </div>
+
+        {% else %}
+
+            <div class="provider-icon">
+
+                <i class="fas fa-user"></i>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- TITLE -->
+
+        <h2 class="signup-title">
+
+            Complete Your Sign Up
+
+        </h2>
+
+
+        <!-- DESCRIPTION -->
+
+        <p class="signup-description">
+
+            You're signing up for Hangarin using your
+            {{ provider.name }} account.
+
+        </p>
+
+
+        <!-- ERRORS -->
+
+        {% if form.errors %}
+
+            <div class="error-message">
+
+                Please correct the errors below.
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- SIGN UP FORM -->
+
+        <form
+            method="post"
+            action="{% url 'socialaccount_signup' %}"
+        >
+
+            {% csrf_token %}
+
+
+            {% for field in form %}
+
+                <div class="form-group">
+
+                    {{ field.label_tag }}
+
+                    {{ field }}
+
+                    {% if field.help_text %}
+
+                        <div class="help-text">
+
+                            {{ field.help_text }}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if field.errors %}
+
+                        <div class="error-message">
+
+                            {% for error in field.errors %}
+
+                                {{ error }}
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+
+            {% if redirect_field_value %}
+
+                <input
+                    type="hidden"
+                    name="{{ redirect_field_name }}"
+                    value="{{ redirect_field_value }}"
+                >
+
+            {% endif %}
+
+
+            <button
+                type="submit"
+                class="btn btn-primary btn-signup"
+            >
+
+                Create Hangarin Account
+
+            </button>
+
+        </form>
+
+
+        <a
+            href="{% url 'account_login' %}"
+            class="cancel-link"
+        >
+
+            Already have an account? Sign In
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

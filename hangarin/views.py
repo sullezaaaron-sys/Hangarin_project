@@ -1,5 +1,6 @@
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.db.models import Q
 
@@ -15,10 +16,12 @@ from .models import (
 # DASHBOARD
 # =========================================================
 
-class HomePageView(ListView):
+class HomePageView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "home.html"
     context_object_name = "recent_tasks"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     def get_queryset(self):
         return Task.objects.select_related(
@@ -64,11 +67,13 @@ class HomePageView(ListView):
 # TASK LIST
 # =========================================================
 
-class TaskList(ListView):
+class TaskList(LoginRequiredMixin, ListView):
     model = Task
     template_name = "task_list.html"
     context_object_name = "tasks"
     paginate_by = 10
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     def get_queryset(self):
         queryset = Task.objects.select_related(
@@ -94,9 +99,11 @@ class TaskList(ListView):
 # ADD TASK
 # =========================================================
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     template_name = "task_form.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     fields = [
         "title",
@@ -114,9 +121,11 @@ class TaskCreateView(CreateView):
 # UPDATE TASK
 # =========================================================
 
-class TaskUpdateView(UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
     template_name = "task_form.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     fields = [
         "title",
@@ -134,9 +143,11 @@ class TaskUpdateView(UpdateView):
 # DELETE TASK
 # =========================================================
 
-class TaskDeleteView(DeleteView):
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = "task_del.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     success_url = reverse_lazy("task-list")
 
@@ -145,11 +156,13 @@ class TaskDeleteView(DeleteView):
 # CATEGORY LIST
 # =========================================================
 
-class CategoryList(ListView):
+class CategoryList(LoginRequiredMixin, ListView):
     model = Category
     template_name = "category_list.html"
     context_object_name = "categories"
     paginate_by = 10
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     def get_queryset(self):
         queryset = Category.objects.all().order_by("name")
@@ -168,9 +181,11 @@ class CategoryList(ListView):
 # ADD CATEGORY
 # =========================================================
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     template_name = "category_form.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     fields = [
         "name",
@@ -183,9 +198,11 @@ class CategoryCreateView(CreateView):
 # UPDATE CATEGORY
 # =========================================================
 
-class CategoryUpdateView(UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = Category
     template_name = "category_form.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     fields = [
         "name",
@@ -198,9 +215,11 @@ class CategoryUpdateView(UpdateView):
 # DELETE CATEGORY
 # =========================================================
 
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = Category
     template_name = "category_confirm_delete.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     success_url = reverse_lazy("category-list")
 
@@ -209,11 +228,13 @@ class CategoryDeleteView(DeleteView):
 # PRIORITY LIST
 # =========================================================
 
-class PriorityList(ListView):
+class PriorityList(LoginRequiredMixin, ListView):
     model = Priority
     template_name = "priority_list.html"
     context_object_name = "priorities"
     paginate_by = 10
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     def get_queryset(self):
         queryset = Priority.objects.all().order_by("name")
@@ -232,9 +253,11 @@ class PriorityList(ListView):
 # ADD PRIORITY
 # =========================================================
 
-class PriorityCreateView(CreateView):
+class PriorityCreateView(LoginRequiredMixin, CreateView):
     model = Priority
     template_name = "priority_form.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     fields = [
         "name",
@@ -247,9 +270,11 @@ class PriorityCreateView(CreateView):
 # UPDATE PRIORITY
 # =========================================================
 
-class PriorityUpdateView(UpdateView):
+class PriorityUpdateView(LoginRequiredMixin, UpdateView):
     model = Priority
     template_name = "priority_form.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     fields = [
         "name",
@@ -262,9 +287,11 @@ class PriorityUpdateView(UpdateView):
 # DELETE PRIORITY
 # =========================================================
 
-class PriorityDeleteView(DeleteView):
+class PriorityDeleteView(LoginRequiredMixin, DeleteView):
     model = Priority
     template_name = "priority_confirm_delete.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     success_url = reverse_lazy("priority-list")
 
@@ -273,11 +300,13 @@ class PriorityDeleteView(DeleteView):
 # SUBTASK LIST
 # =========================================================
 
-class SubTaskList(ListView):
+class SubTaskList(LoginRequiredMixin, ListView):
     model = SubTask
     template_name = "subtask_list.html"
     context_object_name = "subtasks"
     paginate_by = 10
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     def get_queryset(self):
         queryset = SubTask.objects.select_related(
@@ -300,9 +329,11 @@ class SubTaskList(ListView):
 # ADD SUBTASK
 # =========================================================
 
-class SubTaskCreateView(CreateView):
+class SubTaskCreateView(LoginRequiredMixin, CreateView):
     model = SubTask
     template_name = "subtask_form.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     fields = [
         "parent_task",
@@ -317,9 +348,11 @@ class SubTaskCreateView(CreateView):
 # UPDATE SUBTASK
 # =========================================================
 
-class SubTaskUpdateView(UpdateView):
+class SubTaskUpdateView(LoginRequiredMixin, UpdateView):
     model = SubTask
     template_name = "subtask_form.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     fields = [
         "parent_task",
@@ -334,8 +367,10 @@ class SubTaskUpdateView(UpdateView):
 # DELETE SUBTASK
 # =========================================================
 
-class SubTaskDeleteView(DeleteView):
+class SubTaskDeleteView(LoginRequiredMixin, DeleteView):
     model = SubTask
     template_name = "subtask_confirm_delete.html"
+    login_url = "/accounts/login/"
+    redirect_field_name = "next"
 
     success_url = reverse_lazy("subtask-list")

@@ -1,0 +1,210 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Hangarin - {{ provider.name }} Sign In</title>
+
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/bootstrap.min.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/ready.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900"
+    >
+
+
+    <style>
+
+        body {
+            background-color: #f5f7fb;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .social-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+        }
+
+        .social-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            margin-bottom: 25px;
+        }
+
+        .logo h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: #888;
+            margin: 0;
+        }
+
+        .provider-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .social-card h2 {
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .social-card .description {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .btn-provider {
+            width: 100%;
+            height: 48px;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .btn-cancel {
+            width: 100%;
+            height: 48px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="social-container">
+
+
+    <div class="social-card">
+
+
+        <!-- HANGARIN LOGO -->
+
+        <div class="logo">
+
+            <h1>
+                Hangarin
+            </h1>
+
+            <p>
+                Your simple To-Do List
+            </p>
+
+        </div>
+
+
+        <!-- PROVIDER ICON -->
+
+        <div class="provider-icon">
+
+            {% if provider.id == "github" %}
+                <i class="fab fa-github"></i>
+            {% elif provider.id == "google" %}
+                <i class="fab fa-google"></i>
+            {% else %}
+                <i class="fas fa-user"></i>
+            {% endif %}
+
+        </div>
+
+
+        <h2>
+            Sign In with {{ provider.name }}
+        </h2>
+
+
+        <p class="description">
+
+            You are about to sign in to Hangarin
+            using your {{ provider.name }} account.
+
+        </p>
+
+
+        <!-- LOGIN FORM -->
+
+        <form
+            method="post"
+            action=""
+        >
+
+            {% csrf_token %}
+
+
+            <button
+                type="submit"
+                class="btn btn-primary btn-provider"
+            >
+                Continue with {{ provider.name }}
+            </button>
+
+        </form>
+
+
+        <a
+            href="{% url 'account_login' %}"
+            class="btn btn-secondary btn-cancel"
+        >
+            Cancel
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
