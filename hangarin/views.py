@@ -75,14 +75,26 @@ class TaskList(LoginRequiredMixin, ListView):
     login_url = "/accounts/login/"
     redirect_field_name = "next"
 
+    SORT_OPTIONS = {
+        "deadline": "deadline",
+        "-deadline": "-deadline",
+        "title": "title",
+        "status": "status",
+        "priority": "priority__name",
+        "category": "category__name",
+    }
+
     def get_queryset(self):
-        queryset = Task.objects.select_related(
-            "category",
-            "priority"
-        ).order_by("-created_at")
+        queryset = (
+            Task.objects.select_related("category", "priority")
+            .prefetch_related("subtask_set")
+            .order_by("-created_at")
+        )
 
-        search = self.request.GET.get("q")
+        params = self.request.GET
 
+        # ---- search (your existing logic) ----
+        search = params.get("q")
         if search:
             queryset = queryset.filter(
                 Q(title__icontains=search) |
@@ -92,7 +104,36 @@ class TaskList(LoginRequiredMixin, ListView):
                 Q(priority__name__icontains=search)
             )
 
+        # ---- filters ----
+        if params.get("category"):
+            queryset = queryset.filter(category_id=params["category"])
+
+        if params.get("priority"):
+            queryset = queryset.filter(priority_id=params["priority"])
+
+        if params.get("status"):
+            queryset = queryset.filter(status=params["status"])
+
+        # ---- sorting (falls back to newest first) ----
+        sort = params.get("sort")
+        if sort in self.SORT_OPTIONS:
+            queryset = queryset.order_by(self.SORT_OPTIONS[sort], "-created_at")
+
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["categories"] = Category.objects.all().order_by("name")
+        context["priorities"] = Priority.objects.all().order_by("name")
+        context["statuses"] = Task._meta.get_field("status").choices
+
+        # keeps filters when you change pages
+        params = self.request.GET.copy()
+        params.pop("page", None)
+        context["querystring"] = params.urlencode()
+
+        return context
 
 
 # =========================================================
