@@ -1,63 +1,40 @@
-const CACHE_NAME = 'hangarin-cache-v1';
+const CACHE_NAME = "Hangarin - To Do List";
 
-const PRECACHE = [
-  '/offline/',
-  '/static/css/bootstrap.min.css',
-  '/static/css/ready.css',
-  '/static/img/icon-192.png',
+const STATIC_FILES = [
+    "/",
+    '/static/css/bootstrap.min.css',
+    '/static/css/ready.css',
+    "/static/manifest.json"
 ];
 
-self.addEventListener('install', function (event) {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(function (cache) {
-        // allSettled: one missing file won't break the install
-        return Promise.allSettled(PRECACHE.map(function (url) {
-          return cache.add(url);
-        }));
-      })
-      .then(function () { return self.skipWaiting(); })
-  );
+self.addEventListener("install", event => {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(cache => cache.addAll(STATIC_FILES))
+    );
+
+    self.skipWaiting();
 });
 
-self.addEventListener('activate', function (event) {
-  event.waitUntil(
-    caches.keys()
-      .then(function (keys) {
-        return Promise.all(
-          keys.filter(function (k) { return k !== CACHE_NAME; })
-              .map(function (k) { return caches.delete(k); })
-        );
-      })
-      .then(function () { return self.clients.claim(); })
-  );
+self.addEventListener("activate", event => {
+    event.waitUntil(
+        caches.keys().then(keys =>
+            Promise.all(
+                keys
+                    .filter(key => key !== CACHE_NAME)
+                    .map(key => caches.delete(key))
+            )
+        )
+    );
+
+    self.clients.claim();
 });
 
-self.addEventListener('fetch', function (event) {
-  var req = event.request;
-  if (req.method !== 'GET') return;
-
-  var url = new URL(req.url);
-  if (url.origin !== location.origin) return;
-
-  // Static files: cache first
-  if (url.pathname.startsWith('/static/')) {
+self.addEventListener("fetch", event => {
     event.respondWith(
-      caches.match(req).then(function (cached) {
-        return cached || fetch(req).then(function (res) {
-          var copy = res.clone();
-          caches.open(CACHE_NAME).then(function (c) { c.put(req, copy); });
-          return res;
-        });
-      })
+        caches.match(event.request)
+            .then(cachedResponse => {
+                return cachedResponse || fetch(event.request);
+            })
     );
-    return;
-  }
-
-  // Pages: always try the network, show the offline page if it fails
-  if (req.mode === 'navigate') {
-    event.respondWith(
-      fetch(req).catch(function () { return caches.match('/offline/'); })
-    );
-  }
 });
