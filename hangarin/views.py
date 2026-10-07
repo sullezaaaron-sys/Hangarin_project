@@ -12,9 +12,6 @@ from .models import (
 )
 
 
-# =========================================================
-# DASHBOARD
-# =========================================================
 
 class HomePageView(LoginRequiredMixin, ListView):
     model = Task
@@ -63,9 +60,6 @@ class HomePageView(LoginRequiredMixin, ListView):
         return context
 
 
-# =========================================================
-# TASK LIST
-# =========================================================
 
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
@@ -93,7 +87,7 @@ class TaskList(LoginRequiredMixin, ListView):
 
         params = self.request.GET
 
-        # ---- search (your existing logic) ----
+ 
         search = params.get("q")
         if search:
             queryset = queryset.filter(
@@ -104,7 +98,7 @@ class TaskList(LoginRequiredMixin, ListView):
                 Q(priority__name__icontains=search)
             )
 
-        # ---- filters ----
+    
         if params.get("category"):
             queryset = queryset.filter(category_id=params["category"])
 
@@ -136,9 +130,6 @@ class TaskList(LoginRequiredMixin, ListView):
         return context
 
 
-# =========================================================
-# ADD TASK
-# =========================================================
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
@@ -158,9 +149,6 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("task-list")
 
 
-# =========================================================
-# UPDATE TASK
-# =========================================================
 
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
@@ -180,9 +168,6 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("task-list")
 
 
-# =========================================================
-# DELETE TASK
-# =========================================================
 
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
@@ -193,9 +178,6 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("task-list")
 
 
-# =========================================================
-# CATEGORY LIST
-# =========================================================
 
 class CategoryList(LoginRequiredMixin, ListView):
     model = Category
@@ -218,9 +200,6 @@ class CategoryList(LoginRequiredMixin, ListView):
         return queryset
 
 
-# =========================================================
-# ADD CATEGORY
-# =========================================================
 
 class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
@@ -235,9 +214,6 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("category-list")
 
 
-# =========================================================
-# UPDATE CATEGORY
-# =========================================================
 
 class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = Category
@@ -252,9 +228,6 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("category-list")
 
 
-# =========================================================
-# DELETE CATEGORY
-# =========================================================
 
 class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = Category
@@ -265,9 +238,6 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("category-list")
 
 
-# =========================================================
-# PRIORITY LIST
-# =========================================================
 
 class PriorityList(LoginRequiredMixin, ListView):
     model = Priority
@@ -290,9 +260,6 @@ class PriorityList(LoginRequiredMixin, ListView):
         return queryset
 
 
-# =========================================================
-# ADD PRIORITY
-# =========================================================
 
 class PriorityCreateView(LoginRequiredMixin, CreateView):
     model = Priority
@@ -307,9 +274,6 @@ class PriorityCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("priority-list")
 
 
-# =========================================================
-# UPDATE PRIORITY
-# =========================================================
 
 class PriorityUpdateView(LoginRequiredMixin, UpdateView):
     model = Priority
@@ -324,9 +288,6 @@ class PriorityUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("priority-list")
 
 
-# =========================================================
-# DELETE PRIORITY
-# =========================================================
 
 class PriorityDeleteView(LoginRequiredMixin, DeleteView):
     model = Priority
@@ -337,9 +298,6 @@ class PriorityDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("priority-list")
 
 
-# =========================================================
-# SUBTASK LIST
-# =========================================================
 
 class SubTaskList(LoginRequiredMixin, ListView):
     model = SubTask
@@ -366,9 +324,6 @@ class SubTaskList(LoginRequiredMixin, ListView):
         return queryset
 
 
-# =========================================================
-# ADD SUBTASK
-# =========================================================
 
 class SubTaskCreateView(LoginRequiredMixin, CreateView):
     model = SubTask
@@ -385,9 +340,6 @@ class SubTaskCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("subtask-list")
 
 
-# =========================================================
-# UPDATE SUBTASK
-# =========================================================
 
 class SubTaskUpdateView(LoginRequiredMixin, UpdateView):
     model = SubTask
@@ -404,9 +356,6 @@ class SubTaskUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("subtask-list")
 
 
-# =========================================================
-# DELETE SUBTASK
-# =========================================================
 
 class SubTaskDeleteView(LoginRequiredMixin, DeleteView):
     model = SubTask

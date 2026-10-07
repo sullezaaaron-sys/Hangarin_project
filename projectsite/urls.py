@@ -37,6 +37,8 @@ urlpatterns = [
         admin.site.urls
     ),
 
+    path('', include('pwa.urls')),
+
     path("accounts/", include("allauth.urls")),
 
     # =========================
@@ -77,9 +79,6 @@ urlpatterns = [
         name="task-delete"
     ),
 
-    # =========================
-    # CATEGORIES
-    # =========================
 
     path(
         "categories/",
@@ -105,9 +104,7 @@ urlpatterns = [
         name="category-delete"
     ),
 
-    # =========================
-    # PRIORITIES
-    # =========================
+
 
     path(
         "priorities/",
@@ -133,9 +130,7 @@ urlpatterns = [
         name="priority-delete"
     ),
 
-    # =========================
-    # SUBTASKS
-    # =========================
+
 
     path(
         "subtasks/",
@@ -161,9 +156,7 @@ urlpatterns = [
         name="subtask-delete"
     ),
 
-    # =========================
-    # TYPOGRAPHY
-    # =========================
+
 
     path(
         "typography/",
