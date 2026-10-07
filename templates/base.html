@@ -1,4 +1,5 @@
 {% load static %}
+{% load pwa %}  {# NEW: PWA #}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +44,8 @@
 
     {% block extra_css %}
     {% endblock %}
+
+    {% progressive_web_app_meta %}  {# NEW: PWA #}
 
 </head>
 
