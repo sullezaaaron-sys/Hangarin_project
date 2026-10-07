@@ -49,69 +49,141 @@
 
         .social-container {
             width: 100%;
-            max-width: 450px;
+            max-width: 420px;
             padding: 20px;
         }
 
         .social-card {
-            background-color: white;
+            background-color: #fff;
             border-radius: 15px;
-            padding: 40px;
+            padding: 40px 36px;
             text-align: center;
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
         }
 
+        /* ---------- LOGO ---------- */
         .logo {
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
 
         .logo h1 {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 800;
-            margin-bottom: 5px;
+            margin: 0 0 4px;
         }
 
         .logo p {
             color: #888;
             margin: 0;
+            font-size: 14px;
         }
 
+        /* ---------- PROVIDER ICON ---------- */
         .provider-icon {
-            width: 70px;
-            height: 70px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
-            margin: 0 auto 25px;
-            background-color: #f5f5f5;
+            margin: 0 auto 22px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            font-weight: 800;
+            font-size: 32px;
         }
 
+        .provider-icon.google {
+            background-color: #e8f0fe;
+            color: #4285f4;
+        }
+
+        .provider-icon.github {
+            background-color: #eaeaec;
+            color: #24292f;
+        }
+
+        .provider-icon.other {
+            background-color: #f1f1f4;
+            color: #666;
+        }
+
+        /* ---------- TEXT ---------- */
         .social-card h2 {
+            font-size: 22px;
             font-weight: 800;
-            margin-bottom: 15px;
+            line-height: 1.3;
+            margin: 0 0 10px;
+            color: #333;
         }
 
         .social-card .description {
             color: #777;
-            margin-bottom: 30px;
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 0 0 28px;
+        }
+
+        /* ---------- BUTTONS ---------- */
+        .btn-provider,
+        .btn-cancel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 48px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .btn-provider {
-            width: 100%;
-            height: 48px;
-            border-radius: 8px;
-            font-weight: 700;
-            margin-bottom: 10px;
+            border: none;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .btn-provider i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .btn-provider.google {
+            background-color: #4285f4;
+        }
+
+        .btn-provider.google:hover {
+            background-color: #3367d6;
+        }
+
+        .btn-provider.github {
+            background-color: #24292f;
+        }
+
+        .btn-provider.github:hover {
+            background-color: #000;
+        }
+
+        .btn-provider.other {
+            background-color: #1d7af3;
         }
 
         .btn-cancel {
-            width: 100%;
-            height: 48px;
-            border-radius: 8px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            color: #666;
             font-weight: 600;
+        }
+
+        .btn-cancel:hover {
+            background-color: #f5f5f5;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .note {
+            margin-top: 22px;
+            font-size: 12px;
+            color: #aaa;
         }
 
     </style>
@@ -145,21 +217,29 @@
 
         <!-- PROVIDER ICON -->
 
-        <div class="provider-icon">
+        {% if provider.id == "google" %}
 
-            {% if provider.id == "github" %}
-                <i class="fab fa-github"></i>
-            {% elif provider.id == "google" %}
+            <div class="provider-icon google">
                 <i class="fab fa-google"></i>
-            {% else %}
-                <i class="fas fa-user"></i>
-            {% endif %}
+            </div>
 
-        </div>
+        {% elif provider.id == "github" %}
+
+            <div class="provider-icon github">
+                <i class="fab fa-github"></i>
+            </div>
+
+        {% else %}
+
+            <div class="provider-icon other">
+                <i class="fas fa-user"></i>
+            </div>
+
+        {% endif %}
 
 
         <h2>
-            Sign In with {{ provider.name }}
+            Sign in with {{ provider.name }}
         </h2>
 
 
@@ -171,7 +251,7 @@
         </p>
 
 
-        <!-- LOGIN FORM -->
+        <!-- CONTINUE -->
 
         <form
             method="post"
@@ -180,23 +260,44 @@
 
             {% csrf_token %}
 
+            {% if provider.id == "google" %}
 
-            <button
-                type="submit"
-                class="btn btn-primary btn-provider"
-            >
-                Continue with {{ provider.name }}
-            </button>
+                <button type="submit" class="btn-provider google">
+                    <i class="fab fa-google"></i>
+                    Continue with Google
+                </button>
+
+            {% elif provider.id == "github" %}
+
+                <button type="submit" class="btn-provider github">
+                    <i class="fab fa-github"></i>
+                    Continue with GitHub
+                </button>
+
+            {% else %}
+
+                <button type="submit" class="btn-provider other">
+                    Continue with {{ provider.name }}
+                </button>
+
+            {% endif %}
 
         </form>
 
 
+        <!-- CANCEL -->
+
         <a
             href="{% url 'account_login' %}"
-            class="btn btn-secondary btn-cancel"
+            class="btn-cancel"
         >
             Cancel
         </a>
+
+
+        <p class="note">
+            You'll be taken back to Hangarin after signing in.
+        </p>
 
 
     </div>
